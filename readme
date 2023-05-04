@@ -5,3 +5,8 @@ nodemon index.js
 npm run dev
 
 npm i express-validator
+
+npm i mongoose
+
+dbuser:bikescrum 
+db pass:DtdDZrKByi3fLugV

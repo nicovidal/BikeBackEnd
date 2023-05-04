@@ -1,9 +1,14 @@
 const express = require('express');
+const { dbConnection } = require('./database/config');
 require('dotenv').config();
 
 //server exres
 
 const app=express();
+
+//database
+dbConnection();
+
 
 
 //listen petition
