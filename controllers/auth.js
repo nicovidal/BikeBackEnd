@@ -4,18 +4,27 @@ const Alumno=require('../models/Bike')
 
 const createGuard = async (req, res = response) => {
 
-/* 
-  const { guardName, guardUser, guardPassword } = req.body; */
-
+  const { guardUser, guardPassword } = req.body; 
   try{
 
-    const guardia = new Guardia(req.body);
+    let guardia = await Guardia.findOne({guardUser})
+    
+    if(guardia){
+      return res.status(400).json({
+        ok:false,
+        msg:'Un guardia ya existe con ese usuario'
+      });
+    }
 
-    await guardia.save();
+    guardia = new Guardia(req.body);
+
+    await guardia.save(); 
 
     res.status(201).json({
       ok: true,
-      msg: "registrado nuevo guardia"
+      msg: "registrado nuevo guardia",
+      uid:guardia.id,
+      name:guardia.guardName
    
     });
   
@@ -28,24 +37,30 @@ const createGuard = async (req, res = response) => {
   }
 }
  
-
-  
-
-
-
 const createBike = async (req, res = response) => {
-/*   const {name,rut,carrer,brand,color,ID,} = req.body; */
+
+  const {rut} = req.body; 
 
   try{
+
+    let alumno = await Alumno.findOne({rut});
+    if(alumno){
+      return res.status(400).json({
+        ok:false,
+        msg:'El Alumno ya existe'
+      })
+    }
     
-    const alumno = new Alumno(req.body);
+    alumno = new Alumno(req.body);
 
     await alumno.save();
 
 
     res.json({
       ok: true,
-      msg: "Nuevo Alumno agregado"
+      msg: "Nuevo Alumno agregado",
+      uid:alumno.id,
+      name:alumno.name
     });
 
 
@@ -59,17 +74,47 @@ const createBike = async (req, res = response) => {
 
 
 };
-const loginUser = (req, res = response) => {
+const loginUser = async (req, res = response) => {
 
 
   const { guardUser, guardPassword } = req.body;
 
+  try{
+
+    const guardia = await Guardia.findOne({guardUser})
+    
+    if(!guardia){
+      return res.status(400).json({
+        ok:false,
+        msg:'Su usuario de guardia no a sido creado'
+    });
+  }
+
+  
+/*   const validPassword=(guardPassword===guardia.guardPassword);
+
+  if(!validPassword){
+    return res.status(400).json({
+      ok:false,
+      msg:'Password incorreto'
+    })
+  }; */
+
   res.json({
-    ok: true,
-    msg: "login",
-    guardUser,
-    guardPassword,
-  });
+    ok:true,
+    uid:guardia.id,
+    name:guardia.guardName
+
+  })
+
+  }catch(error){
+    console.log(error)
+    res.status(500).json({
+      ok:false,
+      msg:'Por favor hable con el administador'
+    })
+  }
+
 };
 
 
