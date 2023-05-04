@@ -2,7 +2,7 @@ const {Router}=require('express');
 const {check}=require('express-validator')
 const router=Router();
  
-const {createGuard, createBike, loginUser}=require('../controllers/auth');
+const {createGuard, createBike, loginUser, createAdmin}=require('../controllers/auth');
 const { validarCampos } = require('../middlewares/validar-campos');
  
  
@@ -22,6 +22,8 @@ router.post('/',
           min: 6,
         })
     ],validarCampos,loginUser);
+
+router.post('/newAdmin',createAdmin)
 
 
 

@@ -1,6 +1,7 @@
 const { response } = require("express");
 const Guardia=require('../models/Guard')
-const Alumno=require('../models/Bike')
+const Alumno=require('../models/Bike');
+const Admin = require("../models/admin");
 
 const createGuard = async (req, res = response) => {
 
@@ -74,6 +75,38 @@ const createBike = async (req, res = response) => {
 
 
 };
+
+const createAdmin = async (req, res = response) => {
+
+
+  try{
+
+    
+    const admin = new Admin(req.body);
+
+    await admin.save();
+
+
+    res.json({
+      ok: true,
+      msg: "Admin creado",
+      uid:admin.id,
+      name:admin.name
+    });
+
+
+
+  }catch(error){
+    res.status(500).json({
+      ok:false,
+      msg:'No se creo el admin'
+    })
+  }
+
+
+};
+
+
 const loginUser = async (req, res = response) => {
 
 
@@ -123,4 +156,5 @@ module.exports = {
   createGuard,
   createBike,
   loginUser,
+  createAdmin
 };
