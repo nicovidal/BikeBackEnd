@@ -1,0 +1,5 @@
+npm i nodemon -g
+
+nodemon index.js 
+
+npm run dev
