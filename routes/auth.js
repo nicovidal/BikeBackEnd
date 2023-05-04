@@ -1,31 +1,26 @@
 const {Router}=require('express');
+const {check}=require('express-validator')
 const router=Router();
  
+const {createGuard, createBike, loginUser}=require('../controllers/auth')
  
  
-router.post('/newg',(req,res)=>{
-    console.log('prueba');
-    res.json({
-        ok:true,
-        msg:'newGuard'
-    })
-});
+router.post('/newg',
+    [
+        check('guardName','nombre obligatorio').not().isEmpty(),
+        check('guardUser','usuario obligatorio').not().isEmpty(),
+        check("guardPassword", "El password debe de ser de 6 caracteres").isLength({ min: 6})
+    ],createGuard);
 
-router.post('/newa',(req,res)=>{
-    console.log('prueba');
-    res.json({
-        ok:true,
-        msg:'newBike'
-    })
-});
+router.post('/newa',createBike);
 
-router.post('/',(req,res)=>{
-    console.log('prueba');
-    res.json({
-        ok:true,
-        msg:'login'
-    })
-});
+router.post('/',
+    [
+        check("guardUser", "El user es obligatorio").not().isEmpty(),
+        check("guardPassword", "El password debe de ser de 6 caracteres").isLength({
+          min: 6,
+        })
+    ],loginUser);
 
 
 

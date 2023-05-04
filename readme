@@ -3,3 +3,5 @@ npm i nodemon -g
 nodemon index.js 
 
 npm run dev
+
+npm i express-validator
