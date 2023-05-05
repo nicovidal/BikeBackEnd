@@ -4,6 +4,10 @@ nodemon index.js
 
 npm run dev
 
+npm i dotenv
+
+npm i express
+
 npm i express-validator
 
 npm i mongoose
