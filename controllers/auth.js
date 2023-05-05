@@ -1,130 +1,102 @@
 const { response } = require("express");
-const Guardia=require('../models/Guard')
-const Alumno=require('../models/Bike');
+const Guardia = require("../models/Guard");
+const Alumno = require("../models/Bike");
 const Admin = require("../models/admin");
 
 const createGuard = async (req, res = response) => {
+  const { guardUser, guardPassword } = req.body;
+  try {
+    let guardia = await Guardia.findOne({ guardUser });
 
-  const { guardUser, guardPassword } = req.body; 
-  try{
-
-    let guardia = await Guardia.findOne({guardUser})
-    
-    if(guardia){
+    if (guardia) {
       return res.status(400).json({
-        ok:false,
-        msg:'Un guardia ya existe con ese usuario'
+        ok: false,
+        msg: "Un guardia ya existe con ese usuario",
       });
     }
 
     guardia = new Guardia(req.body);
 
-    await guardia.save(); 
+    await guardia.save();
 
     res.status(201).json({
       ok: true,
       msg: "registrado nuevo guardia",
-      uid:guardia.id,
-      name:guardia.guardName
-   
+      uid: guardia.id,
+      name: guardia.guardName,
     });
-  
-
-  }catch(error){
+  } catch (error) {
     res.status(500).json({
-      ok:false,
-      msg:'No se creo'
-    })
+      ok: false,
+      msg: "No se creo",
+    });
   }
-}
- 
+};
+
 const createBike = async (req, res = response) => {
+  const { registerRut } = req.body;
 
-  const {rut} = req.body; 
-
-  try{
-
-    let alumno = await Alumno.findOne({rut});
-    if(alumno){
+  try {
+    let alumno = await Alumno.findOne({ registerRut });
+    if (alumno) {
       return res.status(400).json({
-        ok:false,
-        msg:'El Alumno ya existe'
-      })
+        ok: false,
+        msg: "El Alumno ya existe",
+      });
     }
-    
+
     alumno = new Alumno(req.body);
 
     await alumno.save();
 
-
     res.json({
       ok: true,
       msg: "Nuevo Alumno agregado",
-      uid:alumno.id,
-      name:alumno.name
+      uid: alumno.id,
+      name: alumno.name,
     });
-
-
-
-  }catch(error){
+  } catch (error) {
     res.status(500).json({
-      ok:false,
-      msg:'No se creo'
-    })
+      ok: false,
+      msg: "No se creo",
+    });
   }
-
-
 };
 
 const createAdmin = async (req, res = response) => {
-
-
-  try{
-
-    
+  try {
     const admin = new Admin(req.body);
 
     await admin.save();
 
-
     res.json({
       ok: true,
       msg: "Admin creado",
-      uid:admin.id,
-      name:admin.name
+      uid: admin.id,
+      name: admin.name,
     });
-
-
-
-  }catch(error){
+  } catch (error) {
     res.status(500).json({
-      ok:false,
-      msg:'No se creo el admin'
-    })
+      ok: false,
+      msg: "No se creo el admin",
+    });
   }
-
-
 };
 
-
 const loginUser = async (req, res = response) => {
-
-
   const { guardUser, guardPassword } = req.body;
 
-  try{
+  try {
+    const guardia = await Guardia.findOne({ guardUser });
 
-    const guardia = await Guardia.findOne({guardUser})
-    
-    if(!guardia){
+    if (!guardia) {
       return res.status(400).json({
-        ok:false,
-        msg:'Su usuario de guardia no a sido creado'
-    });
-  }
+        ok: false,
+        msg: "Su usuario de guardia no a sido creado",
+      });
+    }
 
-  
-/*   const validPassword=(guardPassword===guardia.guardPassword);
+    /*   const validPassword=(guardPassword===guardia.guardPassword);
 
   if(!validPassword){
     return res.status(400).json({
@@ -133,28 +105,23 @@ const loginUser = async (req, res = response) => {
     })
   }; */
 
-  res.json({
-    ok:true,
-    uid:guardia.id,
-    name:guardia.guardName
-
-  })
-
-  }catch(error){
-    console.log(error)
+    res.json({
+      ok: true,
+      uid: guardia.id,
+      name: guardia.guardName,
+    });
+  } catch (error) {
+    console.log(error);
     res.status(500).json({
-      ok:false,
-      msg:'Por favor hable con el administador'
-    })
+      ok: false,
+      msg: "Por favor hable con el administador",
+    });
   }
-
 };
-
-
 
 module.exports = {
   createGuard,
   createBike,
   loginUser,
-  createAdmin
+  createAdmin,
 };

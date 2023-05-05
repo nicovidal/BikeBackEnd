@@ -3,28 +3,28 @@ const {Schema,model}=require('mongoose');
 
 const BikeSchemas=Schema({
 
-    name:{
+    registerName:{
         type:String,
         requiere:true
     },
-    rut:{
+    registerRut:{
         type:String,
         requiere:true,
         unique:true
     },
-    carrer:{
+    registerCarrer:{
         type:String,
         requiere:true
     },
-    brand:{
+    registerBrand:{
         type:String,
         requiere:true
     },
-    color:{
+    registerColor:{
         type:String,
         requiere:true
     },
-    ID:{
+    registerID:{
         type:String,
         requiere:true
     },
