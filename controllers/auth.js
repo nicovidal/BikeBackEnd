@@ -119,9 +119,47 @@ const loginUser = async (req, res = response) => {
   }
 };
 
+const loginAdmin = async (req, res = response) => {
+
+  const { adminUser, adminPassword } = req.body;
+
+  try {
+    const admin = await Admin.findOne({ adminUser });
+
+    if (!admin) {
+      return res.status(400).json({
+        ok: false,
+        msg: "Admin no existe",
+      });
+    }
+
+    /*   const validPassword=(guardPassword===guardia.guardPassword);
+
+  if(!validPassword){
+    return res.status(400).json({
+      ok:false,
+      msg:'Password incorreto'
+    })
+  }; */
+
+    res.json({
+      ok: true,
+      uid: admin.id,
+      name: admin.adminName,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Por favor con los informaticos",
+    });
+  }
+};
+
 module.exports = {
   createGuard,
   createBike,
   loginUser,
   createAdmin,
+  loginAdmin
 };

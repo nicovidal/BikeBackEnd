@@ -2,7 +2,7 @@ const {Router}=require('express');
 const {check}=require('express-validator')
 const router=Router();
  
-const {createGuard, createBike, loginUser, createAdmin}=require('../controllers/auth');
+const {createGuard, createBike, loginUser, createAdmin, loginAdmin}=require('../controllers/auth');
 const { validarCampos } = require('../middlewares/validar-campos');
  
  
@@ -24,6 +24,12 @@ router.post('/',
     ],validarCampos,loginUser);
 
 router.post('/newAdmin',createAdmin)
+
+router.post('/adminLogin',
+    [
+        check("adminUser", "El user es obligatorio").not().isEmpty(),
+     
+    ],validarCampos,loginAdmin);
 
 
 
