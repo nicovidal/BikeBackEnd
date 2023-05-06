@@ -26,3 +26,4 @@ app.use(express.json());
 
 //rutas
 app.use('/api/auth',require('./routes/auth'));
+app.use('/api/info',require('./routes/alumnos'));
