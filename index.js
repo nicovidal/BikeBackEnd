@@ -28,5 +28,5 @@ app.use(express.json());
 app.use('/api/auth',require('./routes/auth'));
 app.use('/api/info',require('./routes/alumnos'));
 app.use('/api/info',require('./routes/guardias'));
-app.use('/api/ingresos',require('./routes/ingresos'));
+app.use('/api/ingreso',require('./routes/ingresos'));
 app.use('/api/info',require('./routes/visitas'));
