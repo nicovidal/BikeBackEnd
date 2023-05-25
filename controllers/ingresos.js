@@ -86,5 +86,17 @@ const actualizarSalida = async (req, res = response) => {
   }
 };
 
+const getIngresos = async (req,res=response)=>{
 
-module.exports = { crearIngreso ,actualizarSalida };
+  const ingresos = await Ingreso.find();
+
+
+  res.json({
+    ok:true,
+    ingresos,
+  });
+
+};
+
+
+module.exports = { crearIngreso ,actualizarSalida,getIngresos};
