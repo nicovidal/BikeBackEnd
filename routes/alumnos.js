@@ -1,9 +1,11 @@
 const {Router}=require('express');
-const { getAlumnos, eliminarAlumno, actualizarAlumno } = require('../controllers/alumnos');
+const { getAlumnos, eliminarAlumno, actualizarAlumno, getAlumnosRut } = require('../controllers/alumnos');
 const router=Router();
 
 
 router.get('/alumnos',getAlumnos);
+router.get('/alumnos/rut/:rut',getAlumnosRut)
+
 
 
 
