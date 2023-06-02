@@ -21,7 +21,11 @@ const VisitaSchemas=Schema({
     visitaMotivo:{
         type:String,
         requiere:true,
-    }
+
+    },  horaIngreso: {
+        type: String,
+        required: true,
+      },
 
 })
 
