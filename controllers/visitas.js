@@ -5,7 +5,7 @@ const createVisitas = async (req, res = response) => {
     const { visitaRut, visitaNombre, visitaMarca, visitaLugar, visitaMotivo } = req.body;
   
     try {
-      const horaIngreso = new Date().toLocaleTimeString(); 
+      const horaIngreso = new Date().toLocaleString(); 
   
       let visita = await Visita.findOne({ visitaRut });
   
