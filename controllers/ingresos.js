@@ -86,6 +86,45 @@ const actualizarSalida = async (req, res = response) => {
   }
 };
 
+const getIngresoPorRut=async(req,res=response)=>{
+
+  try {
+
+    const {rut}=req.body;
+
+    const ingresado= await Ingreso.findOne({rutAlumno:rut})
+
+   
+    if (!ingresado){
+      return res.status(400).json({
+        ok:false,
+        msg:'Alumno no tiene ingreso'
+      })
+    }
+
+
+
+    return res.json({
+      ok:true,
+      ingresado
+    })
+
+
+    
+  } catch (error) {
+
+    res.status(500).json({
+      ok: false,
+      msg: "Error en el servidor",
+    });
+    
+  }
+
+
+
+
+}
+
 const getIngresos = async (req,res=response)=>{
 
   const ingresos = await Ingreso.find();
@@ -99,4 +138,4 @@ const getIngresos = async (req,res=response)=>{
 };
 
 
-module.exports = { crearIngreso ,actualizarSalida,getIngresos};
+module.exports = { crearIngreso ,actualizarSalida,getIngresos,getIngresoPorRut};
