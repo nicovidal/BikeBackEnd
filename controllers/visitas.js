@@ -22,7 +22,8 @@ const createVisitas = async (req, res = response) => {
         visitaMarca,
         visitaLugar,
         visitaMotivo,
-        horaIngreso, 
+        horaIngreso,
+        horaSalida:""
       });
   
       await visita.save();
@@ -39,6 +40,42 @@ const createVisitas = async (req, res = response) => {
     }
   };
 
+  const exitVisita=async(req,res=response)=>{
+
+    try{
+      const {rut}=req.body;
+
+
+      const visita = await Visita.findOne({ visitaRut:rut});
+
+      if (!visita) {
+        return res.status(400).json({
+          ok: false,
+          msg: "Visita no encontrada",
+        });
+      }
+
+      visita.horaSalida= new Date().toLocaleString(); 
+      await visita.save();
+      console.log(response)
+      res.json({
+        ok:true,
+        msg:'salida correcta'
+      })
+
+
+    }catch(error){
+      res.status(500).json({
+        ok:false,
+        msg:"Error en el servidor"
+       
+      })
+   
+    }
+
+
+  }
+
 const getVisitas = async (req, res = response) => {
     const visitas = await Visita.find();
 
@@ -48,4 +85,4 @@ const getVisitas = async (req, res = response) => {
     });
 };
 
-module.exports = { createVisitas, getVisitas};
+module.exports = { createVisitas, getVisitas,exitVisita};

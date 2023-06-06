@@ -33,7 +33,7 @@ const crearIngreso = async (req, res = response) => {
       rutAlumno:rut,
       nombreAlumno: alumno.registerName,
       biciAlumno: alumno.registerBrand,
-      horaIngreso: new Date().toISOString(),
+      horaIngreso: new Date().toLocaleString(),
       horaSalida: "",
     });
 
@@ -70,7 +70,7 @@ const actualizarSalida = async (req, res = response) => {
     }
 
     // Actualizar la hora de salida del último ingreso
-    ultimoIngreso.horaSalida = new Date().toISOString();
+    ultimoIngreso.horaSalida = new Date().toLocaleString(); 
     await ultimoIngreso.save();
 
     res.json({
