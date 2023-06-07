@@ -1,6 +1,7 @@
 const { response } = require("express");
 
 const Bike = require("../models/Bike");
+const Ingreso = require("../models/Ingreso");
 
 const getAlumnos = async (req, res = response) => {
   try {
@@ -101,9 +102,23 @@ const getAlumnosRut = async (req, res = response) => {
     const alumno = await Bike.findOne({ registerRut: rut });
 
     if (alumno) {
+      // Obtener el registro de ingreso del alumno
+      const ingreso = await Ingreso.findOne({ rutAlumno: rut }).sort({ horaIngreso: -1 });
+
+
+      // Modificar el objeto de respuesta del alumno para incluir la hora de ingreso o salida si está disponible
+      const alumnoResponse = {
+        registerID:alumno.registerID,
+        registerName: alumno.registerName,
+        registerRut: alumno.registerRut,
+        registerBrand:alumno.registerBrand,
+        horaIngreso:  ingreso.horaIngreso,
+        horaSalida: ingreso.horaSalida ,
+      };
+
       res.json({
         ok: true,
-        alumno,
+        alumno: alumnoResponse,
       });
     } else {
       res.status(404).json({
@@ -119,7 +134,6 @@ const getAlumnosRut = async (req, res = response) => {
     });
   }
 };
-
 module.exports = { getAlumnos, getAlumnosRut, eliminarAlumno, actualizarAlumno };
 
 
