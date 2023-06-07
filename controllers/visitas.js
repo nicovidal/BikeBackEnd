@@ -8,13 +8,21 @@ const createVisitas = async (req, res = response) => {
       const horaIngreso = new Date().toLocaleString(); 
   
       let visita = await Visita.findOne({ visitaRut });
-  
-      if (visita) {
+
+      const salidaPendiente=await Visita.findOne({
+        visitaRut,
+        horaSalida:{$eq:""},
+      })
+
+      if(salidaPendiente){
         return res.status(400).json({
-          ok: false,
-          msg: "La visita ya existe.",
-        });
+          ok:false,
+          msg:"la visita no tiene hora de salida registrada anterior"
+
+        })
       }
+  
+ 
   
       visita = new Visita({
         visitaRut,
