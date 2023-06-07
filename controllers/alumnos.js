@@ -112,8 +112,8 @@ const getAlumnosRut = async (req, res = response) => {
         registerName: alumno.registerName,
         registerRut: alumno.registerRut,
         registerBrand:alumno.registerBrand,
-        horaIngreso:  ingreso.horaIngreso,
-        horaSalida: ingreso.horaSalida ,
+        horaIngreso: ingreso ? ingreso.horaIngreso : "",
+        horaSalida: ingreso ? ingreso.horaSalida : "",
       };
 
       res.json({
