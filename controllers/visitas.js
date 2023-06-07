@@ -40,41 +40,34 @@ const createVisitas = async (req, res = response) => {
     }
   };
 
-  const exitVisita=async(req,res=response)=>{
-
-    try{
-      const {rut}=req.body;
-
-
-      const visita = await Visita.findOne({ visitaRut:rut});
-
+  const exitVisita = async (req, res = response) => {
+    try {
+      const { rut } = req.body;
+  
+      const visita = await Visita.findOne({ visitaRut: rut }).sort({ horaIngreso: -1 });
+  
       if (!visita) {
         return res.status(400).json({
           ok: false,
           msg: "Visita no encontrada",
         });
       }
-
-      visita.horaSalida= new Date().toLocaleString(); 
+  
+      visita.horaSalida = new Date().toLocaleString();
       await visita.save();
-      console.log(response)
+  
       res.json({
-        ok:true,
-        msg:'salida correcta'
-      })
-
-
-    }catch(error){
+        ok: true,
+        msg: 'Salida registrada correctamente',
+      });
+    } catch (error) {
       res.status(500).json({
-        ok:false,
-        msg:"Error en el servidor"
-       
-      })
-   
+        ok: false,
+        msg: 'Error en el servidor',
+      });
     }
-
-
-  }
+  };
+  
 
 const getVisitas = async (req, res = response) => {
     const visitas = await Visita.find();
