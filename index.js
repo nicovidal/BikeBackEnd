@@ -5,6 +5,7 @@ require('dotenv').config();
 //server expres
 
 const app=express();
+const cors= require('cors');
 
 //database
 dbConnection();
@@ -15,6 +16,8 @@ dbConnection();
 app.listen(process.env.PORT,()=>{
     console.log(`Servidor ok ${process.env.PORT}`)
 });
+
+app.use(cors())
 
 
 //directory public
