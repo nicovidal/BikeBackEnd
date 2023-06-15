@@ -5,7 +5,7 @@ const crearIngreso = async (req, res = response) => {
   try {
     const { rut } = req.body;
 
-    // Buscar el alumno en la base de datos por el rut
+    
     const alumno = await Bike.findOne({ registerRut: rut });
 
     if (!alumno) {
@@ -44,6 +44,7 @@ const crearIngreso = async (req, res = response) => {
       msg: "Ingreso realizado",
       ingreso,
     });
+
   } catch (error) {
     console.log(error);
     res.status(500).json({

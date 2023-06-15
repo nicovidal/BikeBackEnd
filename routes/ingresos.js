@@ -5,7 +5,7 @@ const router=Router();
 
 
 
-router.post('/',crearIngreso)
+router.post('/newIngreso',crearIngreso)
 router.put('/salida', actualizarSalida);
 router.get('/listaIngresos',getIngresos);
 router.get('/ingresoPorRut',getIngresoPorRut)
