@@ -16,6 +16,11 @@ const IngresoSchema = Schema({
     ref: "Bike",
     required: true,
   },
+  guardia:{
+    type: Schema.Types.String,
+    ref: "Guard",
+    required: true,
+  },
   horaIngreso: {
     type: String,
     required: true,

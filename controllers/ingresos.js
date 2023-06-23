@@ -3,7 +3,7 @@ const Bike = require('../models/Bike');
 
 const crearIngreso = async (req, res = response) => {
   try {
-    const { rut } = req.body;
+    const { rut ,guardia} = req.body;
 
     
     const alumno = await Bike.findOne({ registerRut: rut });
@@ -33,6 +33,7 @@ const crearIngreso = async (req, res = response) => {
       rutAlumno:rut,
       nombreAlumno: alumno.registerName,
       biciAlumno: alumno.registerBrand,
+      guardia:guardia,
       horaIngreso: new Date().toLocaleString(),
       horaSalida: "",
     });
