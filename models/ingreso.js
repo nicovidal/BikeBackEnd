@@ -31,7 +31,7 @@ const IngresoSchema = Schema({
 });
 
 IngresoSchema.method("toJSON", function () {
-  const { _v, _id, ...object } = this.toObject();
+  const { __v, _id, ...object } = this.toObject();
 
   object.id = _id;
   return object;
