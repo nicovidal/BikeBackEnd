@@ -1,16 +1,3 @@
-npm i nodemon -g
-
-nodemon index.js 
+npm install
 
 npm run dev
-
-npm i dotenv
-
-npm i express
-
-npm i express-validator
-
-npm i mongoose
-
-dbuser:bikescrum 
-db pass:DtdDZrKByi3fLugV
