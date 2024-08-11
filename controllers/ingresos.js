@@ -1,4 +1,4 @@
-const Ingreso = require('../models/Ingreso');
+const Ingreso = require('../models/ingreso');
 const Bike = require('../models/Bike');
 
 const crearIngreso = async (req, res = response) => {
