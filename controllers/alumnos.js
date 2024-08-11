@@ -1,7 +1,8 @@
 const { response } = require("express");
 
 const Bike = require("../models/Bike");
-const Ingreso = require("../models/Ingreso");
+const Ingreso = require("./models/Ingreso");
+
 
 const getAlumnos = async (req, res = response) => {
   try {
