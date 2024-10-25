@@ -17,9 +17,11 @@ app.listen(process.env.PORT,()=>{
     console.log(`Servidor ok ${process.env.PORT}`)
 });
 
-app.use(cors())
-
-
+app.use(cors({
+    origin: "*", 
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+  }));
 //directory public
 app.use(express.static('public'));
 
