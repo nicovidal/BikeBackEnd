@@ -5,6 +5,7 @@ const Ingreso = require("../models/ingreso");
 
 
 const getAlumnos = async (req, res = response) => {
+
   try {
     // Obtener todos los alumnos
     const alumnos = await Bike.find();
@@ -13,6 +14,7 @@ const getAlumnos = async (req, res = response) => {
       ok: true,
       alumnos,
     });
+    
   } catch (error) {
     console.log(error);
     res.status(500).json({
