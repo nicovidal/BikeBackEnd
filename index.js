@@ -1,5 +1,5 @@
 const express = require('express');
-const { dbConnection } = require('../database/config');
+const { dbConnection } = require('./database/config');
 require('dotenv').config();
 
 //server expres
@@ -30,8 +30,8 @@ app.use(express.json());
 
 
 //rutas
-app.use('/api/auth',require('../routes/auth'));
-app.use('/api/info',require('../routes/alumnos'));
-app.use('/api/info',require('../routes/guardias'));
-app.use('/api/ingreso',require('../routes/ingresos'));
-app.use('/api/info',require('../routes/visitas'));
+app.use('/api/auth',require('./routes/auth'));
+app.use('/api/info',require('./routes/alumnos'));
+app.use('/api/info',require('./routes/guardias'));
+app.use('/api/ingreso',require('./routes/ingresos'));
+app.use('/api/info',require('./routes/visitas'));
