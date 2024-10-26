@@ -24,10 +24,6 @@
   ],
   "rewrites": [
     {
-      "source": "/api/info/(.*)",
-      "destination": "/api/info/$1"
-    },
-    {
       "source": "/(.*)",
       "destination": "/"
     }
